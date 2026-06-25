@@ -6,10 +6,10 @@ This repository stores Codex and Claude skill packages.
 
 ## Structure
 
-- Keep complete Codex skill packages under `codex/skills/44-NN-<skill-name>/`.
-- Keep complete Claude skill packages under `claude/skills/44-NN-<skill-name>/`.
+- Keep complete Codex skill packages under `codex/skills/<skill-name>/`.
+- Keep complete Claude skill packages under `claude/skills/<skill-name>/`.
 - Every skill must have both Codex and Claude packages with the same
-  `44-NN-<skill-name>` directory name and `SKILL.md` `name` value.
+  `<skill-name>` directory name and `SKILL.md` `name` value.
 - Keep only truly agent-agnostic assets under `common/`.
 - Keep repository automation in `scripts/`.
 
@@ -17,9 +17,10 @@ This repository stores Codex and Claude skill packages.
 
 - Every Codex and Claude skill package must include `SKILL.md`.
 - The skill directory name and `SKILL.md` `name` value must match
-  `44-NN-<skill-name>`.
-- Use a two-digit sequence starting at `01`; new skills use the next unused
-  number and keep existing numbers stable.
+  `<skill-name>`.
+- Skill names must use lowercase kebab-case, start with a lowercase letter, and
+  contain only lowercase letters, numbers, and hyphen-separated words.
+- New skills use descriptive public names and keep existing names stable.
 - Keep `agents/openai.yaml` with the skill when it provides Codex interface
   metadata.
 - Do not include `agents/openai.yaml` in Claude packages.

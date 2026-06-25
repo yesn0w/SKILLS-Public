@@ -1,0 +1,4 @@
+interface:
+  display_name: "Investigate Repo"
+  short_description: "Investigate repository behavior before editing"
+  default_prompt: "Use $investigate-repo to trace the relevant code path, gather evidence, and report findings before making changes."
