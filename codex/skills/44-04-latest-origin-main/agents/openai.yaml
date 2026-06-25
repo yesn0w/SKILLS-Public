@@ -1,0 +1,4 @@
+interface:
+  display_name: "Latest Origin Main"
+  short_description: "Sync main and refresh this local skill"
+  default_prompt: "Use $44-04-latest-origin-main to stash local changes, switch to main, fast-forward to origin/main, confirm the worktree is clean, and refresh the local skill if its package changed."

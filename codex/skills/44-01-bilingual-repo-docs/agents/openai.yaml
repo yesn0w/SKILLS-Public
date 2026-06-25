@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bilingual Repo Docs"
+  short_description: "Maintain paired English and zh-CN docs"
+  default_prompt: "Use $44-01-bilingual-repo-docs to update bilingual documentation and verify zh-CN naming."
