@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Prep"
+  short_description: "Prepare clean commits, first commits, and PRs"
+  default_prompt: "Use $pr-prep to inspect git state, verify branch/base status, avoid agent-prefixed branch names, validate, commit, push, and prepare a PR."

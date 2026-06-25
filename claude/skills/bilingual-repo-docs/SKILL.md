@@ -1,5 +1,5 @@
 ---
-name: 44-01-bilingual-repo-docs
+name: bilingual-repo-docs
 description: Maintain paired English and zh-CN repository docs. Use when creating, translating, renaming, auditing, or updating bilingual Markdown docs.
 ---
 

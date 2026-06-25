@@ -2,13 +2,12 @@ Chinese version: [README.zh-CN.md](README.zh-CN.md).
 
 # SKILLS
 
-This repository stores personal agent skills that can be synchronized across
-machines.
+This repository stores public, reusable agent skills for Codex and Claude.
 
 Skills are maintained in parallel Codex and Claude packages. Both use
-`SKILL.md` metadata and the same `44-NN-<skill-name>` names. Codex packages
-keep Codex-specific interface metadata in `agents/openai.yaml`; Claude packages
-omit that metadata and use Claude-compatible script references such as
+`SKILL.md` metadata and the same lowercase kebab-case names. Codex packages keep
+Codex-specific interface metadata in `agents/openai.yaml`; Claude packages omit
+that metadata and use Claude-compatible script references such as
 `${CLAUDE_SKILL_DIR}`. Helper scripts stay with each platform package so each
 installed skill remains self-contained.
 
@@ -23,26 +22,27 @@ installed skill remains self-contained.
 
 Current skills, available for both Codex and Claude:
 
-- `44-01-bilingual-repo-docs`: maintain paired English and `zh-CN` repository docs.
-- `44-02-investigate-repo`: investigate repository behavior before editing.
-- `44-03-pr-prep`: inspect repo state and prepare clean PR work.
-- `44-04-latest-origin-main`: sync to a clean latest `origin/main`.
+- `bilingual-repo-docs`: maintain paired English and `zh-CN` repository docs.
+- `investigate-repo`: investigate repository behavior before editing.
+- `pr-prep`: inspect repo state and prepare clean PR work.
+- `latest-origin-main`: sync to a clean latest `origin/main`.
 
 ## Naming
 
 Codex and Claude skill package directories and `SKILL.md` `name` values use:
 
 ```text
-44-NN-<skill-name>
+<skill-name>
 ```
 
-`NN` is a two-digit sequence starting at `01`. When adding a new skill, use the
-next unused number, keep existing numbers stable, and add both platform
-packages:
+Use lowercase kebab-case names that start with a letter and contain only
+lowercase letters, numbers, and hyphen-separated words. When adding a new skill,
+choose a descriptive public name, keep existing names stable, and add both
+platform packages:
 
 ```text
-codex/skills/44-NN-<skill-name>/
-claude/skills/44-NN-<skill-name>/
+codex/skills/<skill-name>/
+claude/skills/<skill-name>/
 ```
 
 ## Install On Another Machine
@@ -50,7 +50,7 @@ claude/skills/44-NN-<skill-name>/
 Clone this repository once:
 
 ```bash
-git clone <your-private-repo-url> ~/agent-skills
+git clone <repository-url> ~/agent-skills
 cd ~/agent-skills
 ```
 
@@ -114,19 +114,19 @@ Explicit prompts are the most reliable.
 In Codex:
 
 ```text
-Use $44-01-bilingual-repo-docs to check docs naming and links.
-Use $44-02-investigate-repo to trace how authentication works before editing code.
-Use $44-03-pr-prep to prepare this repo for a PR.
-Use $44-04-latest-origin-main to sync this repo to the latest origin/main.
+Use $bilingual-repo-docs to check docs naming and links.
+Use $investigate-repo to trace how authentication works before editing code.
+Use $pr-prep to prepare this repo for a PR.
+Use $latest-origin-main to sync this repo to the latest origin/main.
 ```
 
 In Claude Code:
 
 ```text
-/44-01-bilingual-repo-docs check docs naming and links.
-/44-02-investigate-repo trace how authentication works before editing code.
-/44-03-pr-prep prepare this repo for a PR.
-/44-04-latest-origin-main sync this repo to the latest origin/main.
+/bilingual-repo-docs check docs naming and links.
+/investigate-repo trace how authentication works before editing code.
+/pr-prep prepare this repo for a PR.
+/latest-origin-main sync this repo to the latest origin/main.
 ```
 
 Natural language may also trigger the skills when the request clearly matches

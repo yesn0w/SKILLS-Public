@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 
-NAME_RE = re.compile(r"^44-(\d{2})-[a-z0-9]+(?:-[a-z0-9]+)*$")
+NAME_RE = re.compile(r"^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$")
 
 
 def read_skill_name(skill_file: Path) -> str | None:
@@ -34,18 +34,14 @@ def validate_platform(
         return set()
 
     names: set[str] = set()
-    numbers: list[int] = []
-
     for skill_dir in sorted(path for path in skills_dir.iterdir() if path.is_dir()):
         match = NAME_RE.fullmatch(skill_dir.name)
         if not match:
             failures.append(
-                f"{skill_dir.relative_to(repo_root)} must match 44-NN-<skill-name>"
+                f"{skill_dir.relative_to(repo_root)} must use lowercase kebab-case"
             )
             continue
 
-        number = int(match.group(1))
-        numbers.append(number)
         names.add(skill_dir.name)
 
         skill_file = skill_dir / "SKILL.md"
@@ -64,15 +60,6 @@ def validate_platform(
                 f"{(skill_dir / 'agents' / 'openai.yaml').relative_to(repo_root)} "
                 "is Codex interface metadata and should not be in Claude packages"
             )
-
-    expected = list(range(1, len(numbers) + 1))
-    if sorted(numbers) != expected:
-        expected_text = ", ".join(f"{number:02d}" for number in expected)
-        actual_text = ", ".join(f"{number:02d}" for number in sorted(numbers))
-        failures.append(
-            f"{platform} skill numbers must be contiguous: "
-            f"expected {expected_text}; got {actual_text}"
-        )
 
     return names
 
