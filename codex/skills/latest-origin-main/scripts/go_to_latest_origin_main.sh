@@ -7,11 +7,11 @@ remote_ref="refs/remotes/${remote}/${branch}"
 stash_created=0
 stash_ref=""
 stash_message=""
-skill_name="44-04-latest-origin-main"
-skill_source_rel="claude/skills/${skill_name}"
-local_skill_root="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
-local_skill_dir="${CLAUDE_SKILL_DIR:-${local_skill_root}/${skill_name}}"
-skill_backup_root="${CLAUDE_SKILL_SYNC_BACKUP_DIR:-$HOME/.claude/skill-sync-backups}"
+skill_name="latest-origin-main"
+skill_source_rel="codex/skills/${skill_name}"
+local_skill_root="${CODEX_SKILLS_DIR:-${CODEX_HOME:-$HOME/.codex}/skills}"
+local_skill_dir="${local_skill_root}/${skill_name}"
+skill_backup_root="${CODEX_SKILL_SYNC_BACKUP_DIR:-${CODEX_HOME:-$HOME/.codex}/skill-sync-backups}"
 
 fail() {
   printf 'ERROR: %s\n' "$*" >&2
@@ -251,7 +251,7 @@ fi
 
 if [[ -n "$(git status --porcelain)" ]]; then
   timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-  stash_message="44-04-latest-origin-main: ${original_branch} ${timestamp}"
+  stash_message="latest-origin-main: ${original_branch} ${timestamp}"
   run git stash push -u -m "$stash_message"
   stash_created=1
   stash_ref=$(git stash list --format='%gd' -n 1)

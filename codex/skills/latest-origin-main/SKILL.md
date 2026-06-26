@@ -1,6 +1,6 @@
 ---
-name: 44-04-latest-origin-main
-description: Sync a Git repo to clean latest origin/main and refresh this local installed skill when this skills repository updates its package files. Use when asked for latest origin main, a clean main, or to prepare for new work.
+name: latest-origin-main
+description: Prepare a Git repository for a new task by safely stashing local changes, switching to main, fetching origin, fast-forwarding to origin/main, confirming the worktree is clean, and syncing this local installed skill when this skills repository updates its package files. Use when the user says "go to the latest origin main", "latest origin main", asks to sync main before new work, or wants a clean current main before starting development.
 ---
 
 # Latest Origin Main
@@ -15,7 +15,7 @@ Use this skill when the user wants to prepare a repository for a new question or
 - Only update `main` with `git merge --ff-only origin/main`.
 - Stop if `main` and `origin/main` have diverged, if Git has an unfinished merge/rebase/cherry-pick/revert, or if `origin/main` cannot be verified.
 - Do not create a new development branch unless the user separately asks for it.
-- When running inside this skills repository, if the fast-forward updates files under `claude/skills/44-04-latest-origin-main/`, sync the local installed Claude skill after the repository is clean. Treat symlink installs as already synced only when they resolve to the updated source; for copy installs, preserve a backup before mirroring the package.
+- When running inside this skills repository, if the fast-forward updates files under `codex/skills/latest-origin-main/`, sync the local installed Codex skill after the repository is clean. Treat symlink installs as already synced only when they resolve to the updated source; for copy installs, preserve a backup before mirroring the package.
 
 ## Workflow
 
@@ -33,7 +33,7 @@ Use this skill when the user wants to prepare a repository for a new question or
 4. Verify `origin/main` exists:
    - `git rev-parse --verify refs/remotes/origin/main`
 5. If the worktree has changes, stash them:
-   - message format: `44-04-latest-origin-main: <branch> <timestamp>`
+   - message format: `latest-origin-main: <branch> <timestamp>`
    - include untracked files with `-u`
    - after creating the stash, show its stashed file list with `git stash show --include-untracked --name-status <stash>`
 6. Switch to local `main`:
@@ -46,9 +46,9 @@ Use this skill when the user wants to prepare a repository for a new question or
    - `git rev-parse refs/remotes/origin/main`
    - `git status --short`
    - stop if `HEAD` differs from `origin/main` or the worktree is not clean.
-9. If the current repository contains `claude/skills/44-04-latest-origin-main/`, check whether that package changed between the previous local `main` commit and the updated `main` commit:
-   - compare with `git diff --name-only <previous-main> <updated-main> -- claude/skills/44-04-latest-origin-main`
-   - if files changed, sync `${CLAUDE_SKILL_DIR}` when set, otherwise `${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}/44-04-latest-origin-main`
+9. If the current repository contains `codex/skills/latest-origin-main/`, check whether that package changed between the previous local `main` commit and the updated `main` commit:
+   - compare with `git diff --name-only <previous-main> <updated-main> -- codex/skills/latest-origin-main`
+   - if files changed, sync `${CODEX_SKILLS_DIR:-${CODEX_HOME:-$HOME/.codex}/skills}/latest-origin-main`
    - if the local skill path is a symlink to the repository package, report that it is already synced
    - if the local skill path is a directory copy, back it up and mirror the updated package
    - stop instead of overwriting a non-skill path or a symlink that points somewhere else
@@ -58,7 +58,7 @@ Use this skill when the user wants to prepare a repository for a new question or
 Prefer the bundled script for consistency:
 
 ```bash
-bash ${CLAUDE_SKILL_DIR}/scripts/go_to_latest_origin_main.sh
+bash ~/.codex/skills/latest-origin-main/scripts/go_to_latest_origin_main.sh
 ```
 
 The script operates on the current repository and prints the original branch and commit, resulting branch and commit, whether the repository position moved, whether a stash was created, the stashed file list when applicable, local skill sync status when applicable, and recovery instructions.
@@ -75,7 +75,7 @@ Report:
 - Stashed file list, if a stash was created, including untracked files saved by `git stash push -u`.
 - Final `main` commit hash.
 - Whether `HEAD` matches `origin/main`.
-- Local skill sync status when this repository updates files under `claude/skills/44-04-latest-origin-main/`, including changed skill files and any backup path.
+- Local skill sync status when this repository updates files under `codex/skills/latest-origin-main/`, including changed skill files and any backup path.
 - Any failure reason and the safest next step.
 
 If a stash was created, include the exact restore command, for example:

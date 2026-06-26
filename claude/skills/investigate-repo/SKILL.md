@@ -1,6 +1,6 @@
 ---
-name: 44-02-investigate-repo
-description: Investigate an unfamiliar repository, feature, bug, behavior, architecture question, or code path before editing. Use when Codex is asked to understand how something works, locate an implementation, trace data or control flow, explain why behavior occurs, assess impact, find related tests or configs, or report evidence-backed findings without immediately changing code.
+name: investigate-repo
+description: Investigate repository behavior before editing. Use when asked to trace code paths, explain behavior, assess impact, or report evidence-backed findings.
 ---
 
 # Investigate Repo
